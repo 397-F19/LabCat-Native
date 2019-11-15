@@ -21,21 +21,15 @@ export default class Profile extends React.Component {
             imageStyle={styles.profileImage}>
             <Block flex style={styles.profileDetails}>
               <Block style={styles.profileTexts}>
-                <Text color="white" size={28} style={{ paddingBottom: 8 }}>Rachel Brown</Text>
+                <Text color="white" size={28} style={{ paddingBottom: 8 }}>Jane Doe</Text>
                 <Block row space="between">
                   <Block row>
-                    <Block middle style={styles.pro}>
-                      <Text size={16} color="white">Pro</Text>
-                    </Block>
-                    <Text color="white" size={16} muted style={styles.seller}>Seller</Text>
-                    <Text size={16} color={materialTheme.COLORS.WARNING}>
-                      4.8 <Icon name="shape-star" family="GalioExtra" size={14} />
-                    </Text>
+                    <Text color="white" size={16} muted style={styles.seller}>Student</Text>
                   </Block>
                   <Block>
                     <Text color={theme.COLORS.MUTED} size={16}>
                       <Icon name="map-marker" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
-                      {` `} Los Angeles, CA
+                      {` `} Evanston, IL
                       </Text>
                   </Block>
                 </Block>
@@ -49,11 +43,11 @@ export default class Profile extends React.Component {
             <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
               <Block middle>
                 <Text bold size={12} style={{marginBottom: 8}}>36</Text>
-                <Text muted size={12}>Orders</Text>
+                <Text muted size={12}>Upcoming</Text>
               </Block>
               <Block middle>
                 <Text bold size={12} style={{marginBottom: 8}}>5</Text>
-                <Text muted size={12}>Bids & Offers</Text>
+                <Text muted size={12}>Past</Text>
               </Block>
               <Block middle>
                 <Text bold size={12} style={{marginBottom: 8}}>2</Text>
