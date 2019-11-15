@@ -19,6 +19,7 @@
     "expo-asset": "~7.0.0",
     "expo-font": "~7.0.0",
     "expo-linear-gradient": "~7.0.0",
+    "firebase": "^7.4.0",
     "galio-framework": "^0.6.3",
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
@@ -35,5 +36,11 @@
   "bugs": {
     "url": "https://github.com/creativetimofficial/material-kit-react-native/issues"
   },
-  "homepage": "https://demos.creative-tim.com/material-kit-react-native/"
+  "homepage": "https://demos.creative-tim.com/material-kit-react-native/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/397-F19/LabCat-Native.git"
+  },
+  "author": "",
+  "license": "ISC"
 }
