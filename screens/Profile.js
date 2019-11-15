@@ -55,7 +55,7 @@ export default class Profile extends React.Component {
               </Block>
             </Block>
             <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
-              <Text size={16}>Recently viewed</Text>
+              <Text size={16}>Upcoming</Text>
               <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>
             </Block>
             <Block style={{ paddingBottom: -HeaderHeight * 2 }}>

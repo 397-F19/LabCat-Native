@@ -91,7 +91,7 @@ const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({navigation}) => ({
-      header: <Header search tabs title="Home" navigation={navigation} />,
+      header: <Header search tabs title="Studies" navigation={navigation} />,
     })
   },
   Pro: {
@@ -117,11 +117,11 @@ const AppStack = createDrawerNavigator(
         drawerLabel: () => {},
       },
     },
-    Home: {
+    Studies: {
       screen: HomeStack,
       navigationOptions: {
         drawerLabel: ({focused}) => (
-          <Drawer focused={focused} screen="Home" title="Home" />
+          <Drawer focused={focused} screen="Home" title="Studies" />
         )
       }
     },
