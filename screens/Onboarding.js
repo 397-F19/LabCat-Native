@@ -12,36 +12,36 @@ export default class Onboarding extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <Block flex style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <Block flex center>
+        <Block flex style={styles.container}>
+          <StatusBar barStyle="light-content" />
           <ImageBackground
-            source={{  uri: Images.Onboarding }}
-            style={{ height: height, width: width, marginTop: '-55%', zIndex: 1 }}
-          />
-        </Block>
-        <Block flex space="between" style={styles.padded}>
-          <Block flex space="around" style={{ zIndex: 2 }}>
-            <Block>
-              <Block>
-                <Text color="white" size={60}>Lab Cat</Text>
+              source={require('../assets/images/background.jpeg')}
+              style={{ height: height, width: width, zIndex: 1 }}
+          >
+
+            <Block flex space="between" style={styles.padded}>
+              <Block flex space="around" style={{ zIndex: 2 }}>
+                <Block>
+                  <Block>
+                    <Text center color="white" size={60}>Lab Cat</Text>
+                  </Block>
+                  <Text center size={16} color='rgba(255,255,255,0.6)'>
+                    To Find Research Studies
+                  </Text>
+                </Block>
+                <Block center>
+                  <Button
+                      shadowless
+                      style={styles.button}
+                      color={materialTheme.COLORS.BUTTON_COLOR}
+                      onPress={() => navigation.navigate('Home')}>
+                    GET STARTED
+                  </Button>
+                </Block>
               </Block>
-              <Text size={16} color='rgba(255,255,255,0.6)'>
-                To Find Research Studies
-              </Text>
             </Block>
-            <Block center>
-              <Button
-                shadowless
-                style={styles.button}
-                color={materialTheme.COLORS.BUTTON_COLOR}
-                onPress={() => navigation.navigate('Home')}>
-                GET STARTED
-              </Button>
-            </Block>
-          </Block>
+          </ImageBackground>
         </Block>
-      </Block>
     );
   }
 }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     bottom: theme.SIZES.BASE,
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
+    width: width - theme.SIZES.BASE * 10,
     height: theme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0,
