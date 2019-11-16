@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 
-import { Icon, Product } from '../components/';
+import { Icon, Study } from '../components/';
 
 const { width } = Dimensions.get('screen');
-import studies from '../constants/products';
+import studies from '../constants/studies';
 
 export default function Home() {
   const renderSearch = () => {
@@ -47,9 +47,8 @@ export default function Home() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.studies}>
-          <Block flex row>
-            <Product product={studies[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Product product={studies[2]} />
+          <Block flex col>
+            {studies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
           </Block>
       </ScrollView>
     )
