@@ -8,7 +8,7 @@ import { Icon, Study } from '../components/';
 const { width } = Dimensions.get('screen');
 //import studies from '../constants/studies';
 
-export default function Home() {
+export default function Home({navigation}) {
   const renderSearch = () => {
     const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
 
