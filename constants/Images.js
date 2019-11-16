@@ -1,6 +1,6 @@
 const Onboarding = 'https://thestreamable.com/media/pages/sports/ncaa-football/northwestern-wildcats/3811605610-1568668418/northwestern-wildcats-banner.png?fit=fillmax';
 const Pro = 'https://images.unsplash.com/photo-1485796826113-174aa68fd81b?fit=crop&w=840&q=80';
-const Products = {
+const Studies = {
   'Accessories': 'https://source.unsplash.com//l1MCA0VyNrk/840x840',
 };
 
@@ -19,7 +19,7 @@ const Viewed = [
 export default {
   Onboarding,
   Pro,
-  Products,
+  Studies,
   Profile,
   Viewed,
   Avatar,

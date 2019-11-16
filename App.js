@@ -18,7 +18,7 @@ import { Asset } from 'expo-asset';
 import { Block, GalioProvider } from 'galio-framework';
 
 import AppContainer from './navigation/Screens';
-import { Images, products, materialTheme } from './constants/';
+import { Images, studies, materialTheme } from './constants/';
 import db from './firebase/fb';
 
 // cache app images
@@ -29,8 +29,8 @@ const assetImages = [
   Images.Onboarding,
 ];
 
-// cache product images
-products.map(product => assetImages.push(product.image));
+// cache study images
+studies.map(study => assetImages.push(study.image));
 
 function cacheImages(images) {
   return images.map(image => {

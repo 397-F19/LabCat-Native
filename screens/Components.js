@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
 
-import { materialTheme, products, Images } from '../constants/';
-import { Select, Icon, Header, Product, Switch } from '../components/';
+import { materialTheme, studies, Images } from '../constants/';
+import { Select, Icon, Header, Study, Switch } from '../components/';
 
 const { width } = Dimensions.get('screen');
 
@@ -254,16 +254,16 @@ export default class Components extends React.Component {
         <Text bold size={16} style={styles.title}>Cards</Text>
         <Block flex>
           <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-            <Product product={products[0]} horizontal />
+            <Study study={studies[0]} horizontal />
             <Block flex row>
-              <Product product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
-              <Product product={products[2]} />
+              <Study study={studies[1]} style={{ marginRight: theme.SIZES.BASE }} />
+              <Study study={studies[2]} />
             </Block>
-            <Product product={products[3]} horizontal />
-            <Product product={products[4]} full />
+            <Study study={studies[3]} horizontal />
+            <Study study={studies[4]} full />
             <Block flex card shadow style={styles.category}>
               <ImageBackground
-                source={{ uri: Images.Products['Accessories'] }}
+                source={{ uri: Images.Studies['Accessories'] }}
                 style={[styles.imageBlock, { width: width - (theme.SIZES.BASE * 2), height: 252 }]}
                 imageStyle={{ width: width - (theme.SIZES.BASE * 2), height: 252 }}>
                 <Block style={styles.categoryTitle}>
