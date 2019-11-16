@@ -11,7 +11,7 @@
 
 */
 
-import React from 'react';
+import React, {useState} from 'react';
 import { Platform, StatusBar, Image } from 'react-native';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
@@ -42,45 +42,42 @@ function cacheImages(images) {
   });
 }
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false,
-  };
+export default function App() {
+  [isLoadingComplete,setloading] = useState(false);
+  [skiploadingscreen, setskip] = useState(false)
 
-  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return (
-        <GalioProvider theme={materialTheme}>
-          <Block flex>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppContainer />
-          </Block>
-        </GalioProvider>
-      );
-    }
+  if (isLoadingComplete && skiploadingscreen) {
+    return (
+      <AppLoading
+        startAsync={_loadResourcesAsync}
+        onError={_handleLoadingError}
+        onFinish={_handleFinishLoading}
+      />
+    );
+  } else {
+    return (
+      <GalioProvider theme={materialTheme}>
+        <Block flex>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppContainer />
+        </Block>
+      </GalioProvider>
+    );
   }
 
-  _loadResourcesAsync = async () => {
+  const _loadResourcesAsync = async () => {
     return Promise.all([
       ...cacheImages(assetImages),
     ]);
   };
 
-  _handleLoadingError = error => {
+  const _handleLoadingError = error => {
     // In this case, you might want to report the error to your error
     // reporting service, for example Sentry
     console.warn(error);
   };
 
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
+  const _handleFinishLoading = () => {
+    setloading(true);
   };
 }
