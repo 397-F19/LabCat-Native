@@ -1,11 +1,11 @@
 import Images from './Images';
-import products from './products';
+import studies from './studies';
 import materialTheme from './Theme';
 import utils from './utils';
 
 export {
   Images,
-  products,
+  studies,
   materialTheme,
   utils,
 }

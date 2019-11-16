@@ -7,40 +7,40 @@ import materialTheme from '../constants/Theme';
 
 const { width } = Dimensions.get('screen');
 
-const Product = ({navigation, product, horizontal, full, style, priceColor, imageStyle}) => {
+const Study = ({navigation, study, horizontal, full, style, priceColor, imageStyle}) => {
     const imageStyles = [styles.image, full ? styles.fullImage : styles.horizontalImage, imageStyle];
     return (
-      <Block row={horizontal} card flex style={[styles.product, styles.shadow, style]}>
+      <Block row={horizontal} card flex style={[styles.study, styles.shadow, style]}>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
           <Block flex style={[styles.imageContainer, styles.shadow]}>
-            <Image source={{ uri: product.image }} style={imageStyles} />
+            <Image source={{ uri: study.image }} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex space="between" style={styles.productDescription}>
-            <Text size={14} style={styles.productTitle}>{product.title}</Text>
-            <Text size={12} muted={!priceColor} color={priceColor}>${product.price}</Text>
+          <Block flex space="between" style={styles.studyDescription}>
+            <Text size={14} style={styles.studyTitle}>{study.title}</Text>
+            <Text size={12} muted={!priceColor} color={priceColor}>${study.price}</Text>
           </Block>
         </TouchableWithoutFeedback>
       </Block>
     );
 };
 
-export default withNavigation(Product);
+export default withNavigation(Study);
 
 const styles = StyleSheet.create({
-  product: {
+  study: {
     backgroundColor: theme.COLORS.WHITE,
     marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
   },
-  productTitle: {
+  studyTitle: {
     flex: 1,
     flexWrap: 'wrap',
     paddingBottom: 6,
   },
-  productDescription: {
+  studyDescription: {
     padding: theme.SIZES.BASE / 2,
   },
   imageContainer: {
