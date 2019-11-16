@@ -19,7 +19,7 @@ const Study = ({navigation, study, horizontal, full, style, priceColor, imageSty
         <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
           <Block flex space="between" style={styles.studyDescription}>
             <Text size={14} style={styles.studyTitle}>{study.title}</Text>
-            <Text size={12} muted={!priceColor} color={priceColor}>${study.price}</Text>
+            <Text size={12} muted={!priceColor} color={priceColor}>{study.payment}</Text>
           </Block>
         </TouchableWithoutFeedback>
       </Block>
