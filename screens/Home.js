@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Button, Block, Text, Input, theme } from 'galio-framework';
+import db from '../firebase/fb';
 
 import { Icon, Study } from '../components/';
 
 const { width } = Dimensions.get('screen');
-import studies from '../constants/studies';
+//import studies from '../constants/studies';
 
 export default function Home() {
   const renderSearch = () => {
@@ -43,6 +44,19 @@ export default function Home() {
   }
 
   const renderStudies = () => {
+    const [studies, setStudies] = useState([]);
+
+    useEffect(() => {
+    const handleData = snap => {
+      let temp = Object.values(snap.val());
+      setStudies(temp);
+    };
+    db.ref("studies").on("value", handleData, error => alert(error));
+    return () => {
+      db.ref("studies").off("value", handleData);
+    };
+
+  }, []);
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
