@@ -73,6 +73,10 @@ class Header extends React.Component {
         return ([
           <ChatButton key='chat-search' navigation={navigation} isWhite={white} />,
         ]);
+      case 'StudyPage':
+        return ([
+          <ChatButton key='study-page' navigation={navigation} isWhite={white} />,
+        ]);
       default:
         break;
     }
@@ -82,7 +86,7 @@ class Header extends React.Component {
   render() {
     const { back, title, white, transparent, navigation } = this.props;
     const { routeName } = navigation.state;
-    const noShadow = ["Search", "Categories", "Deals", "Pro", "Profile"].includes(routeName);
+    const noShadow = ["Search", "Categories", "Deals", "Pro", "Profile", "StudyPage"].includes(routeName);
     const headerStyles = [
       !noShadow ? styles.shadow : null,
       transparent ? { backgroundColor: 'rgba(0,0,0,0)' } : null,

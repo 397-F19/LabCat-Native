@@ -124,5 +124,6 @@ const styles = StyleSheet.create({
   studies: {
     width: width - theme.SIZES.BASE * 2,
     paddingVertical: theme.SIZES.BASE * 2,
+    marginHorizontal: 25
   },
 });

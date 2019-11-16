@@ -11,12 +11,12 @@ const Study = ({navigation, study, horizontal, full, style, priceColor, imageSty
     const imageStyles = [styles.image, full ? styles.fullImage : styles.horizontalImage, imageStyle];
     return (
       <Block row={horizontal} card flex style={[styles.study, styles.shadow, style]}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('StudyPage', {study: study})}>
           <Block flex style={[styles.imageContainer, styles.shadow]}>
             <Image source={{ uri: study.image }} style={imageStyles} />
           </Block>
         </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('StudyPage', {study: study})}>
           <Block flex space="between" style={styles.studyDescription}>
             <Text size={14} style={styles.studyTitle}>{study.title}</Text>
             <Text size={12} muted={!priceColor} color={priceColor}>{study.payment}</Text>

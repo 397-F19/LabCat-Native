@@ -9,6 +9,7 @@ import HomeScreen from '../screens/Home';
 import OnboardingScreen from '../screens/Onboarding';
 import ProfileScreen from '../screens/Profile';
 import ProScreen from '../screens/Pro';
+import StudyPage from "../screens/StudyPage";
 import SettingsScreen from '../screens/Settings';
 
 import Menu from './Menu';
@@ -101,6 +102,14 @@ const HomeStack = createStackNavigator({
       headerTransparent: true,
     })
   },
+  StudyPage: {
+    screen: StudyPage,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back black title="" navigation={navigation}/>,
+      headerTransparent: true
+    })
+  }
+
 },
 {
   cardStyle: { 
