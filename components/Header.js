@@ -78,53 +78,6 @@ class Header extends React.Component {
     }
   }
 
-  renderSearch = () => {
-    const { navigation } = this.props;
-    return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        placeholder="What are you looking for?"
-        onFocus={() => navigation.navigate('Pro')}
-        iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="magnifying-glass" family="entypo" />}
-      />
-    )
-  }
-
-  renderTabs = () => {
-    const { navigation, tabTitleLeft, tabTitleRight } = this.props;
-
-    return (
-      <Block row style={styles.tabs}>
-        <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Pro')}>
-          <Block row middle>
-            <Icon name="grid" family="feather" style={{ paddingRight: 8 }} />
-            <Text size={16} style={styles.tabTitle}>{tabTitleLeft || 'Categories'}</Text>
-          </Block>
-        </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
-          <Block row middle>
-            <Icon size={16} name="camera-18" family="GalioExtra" style={{ paddingRight: 8 }} />
-            <Text size={16} style={styles.tabTitle}>{tabTitleRight || 'Best Deals'}</Text>
-          </Block>
-        </Button>
-      </Block>
-    )
-  }
-
-  renderHeader = () => {
-    const { search, tabs } = this.props;
-    if (search || tabs) {
-      return (
-        <Block center>
-          {search ? this.renderSearch() : null}
-          {tabs ? this.renderTabs() : null}
-        </Block>
-      )
-    }
-    return null;
-  }
 
   render() {
     const { back, title, white, transparent, navigation } = this.props;
@@ -153,7 +106,6 @@ class Header extends React.Component {
           ]}
           onLeftPress={this.handleLeftPress}
         />
-        {this.renderHeader()}
       </Block>
     );
   }

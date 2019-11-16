@@ -5,7 +5,7 @@ import { Button, Block, Text, Input, theme } from 'galio-framework';
 import { Icon, Product } from '../components/';
 
 const { width } = Dimensions.get('screen');
-import products from '../constants/products';
+import studies from '../constants/products';
 
 export default class Home extends React.Component {
   renderSearch = () => {
@@ -26,7 +26,6 @@ export default class Home extends React.Component {
   
   renderTabs = () => {
     const { navigation } = this.props;
-
     return (
       <Block row style={styles.tabs}>
         <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Pro')}>
@@ -37,28 +36,36 @@ export default class Home extends React.Component {
         </Button>
         <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
           <Block row middle>
-            <Icon size={16} name="camera-18" family="GalioExtra" style={{ paddingRight: 8 }} />
-            <Text size={16} style={styles.tabTitle}>Best Deals</Text>
+            <Icon size={16} name="map-marker" family="font-awesome" style={{ paddingRight: 8 }} />
+            <Text size={16} style={styles.tabTitle}>Nearby Studies</Text>
           </Block>
         </Button>
       </Block>
     )
   }
 
-  renderProducts = () => {
+  renderHeader = () => {
+    const { search, tabs } = this.props;
+    if (search || tabs) {
+      return (
+        <Block center>
+          {search ? this.renderSearch() : null}
+          {tabs ? this.renderTabs() : null}
+        </Block>
+      )
+    }
+    return null;
+  }
+
+  renderStudies = () => {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.products}>
-        <Block flex>
-          <Product product={products[0]} horizontal />
+        contentContainerStyle={styles.studies}>
           <Block flex row>
-            <Product product={products[1]} style={{ marginRight: theme.SIZES.BASE }} />
-            <Product product={products[2]} />
+            <Product product={studies[1]} style={{ marginRight: theme.SIZES.BASE }} />
+            <Product product={studies[2]} />
           </Block>
-          <Product product={products[3]} horizontal />
-          <Product product={products[4]} full />
-        </Block>
       </ScrollView>
     )
   }
@@ -66,7 +73,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <Block flex center style={styles.home}>
-        {this.renderProducts()}
+        {this.renderSearch()}
+        {this.renderTabs()}
+        {this.renderStudies()}
       </Block>
     );
   }
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0.3,
     borderRightColor: theme.COLORS.MUTED,
   },
-  products: {
+  studies: {
     width: width - theme.SIZES.BASE * 2,
     paddingVertical: theme.SIZES.BASE * 2,
   },
