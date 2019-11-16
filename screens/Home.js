@@ -7,9 +7,8 @@ import { Icon, Product } from '../components/';
 const { width } = Dimensions.get('screen');
 import studies from '../constants/products';
 
-export default class Home extends React.Component {
-  renderSearch = () => {
-    const { navigation } = this.props;
+export default function Home() {
+  const renderSearch = () => {
     const iconCamera = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
 
     return (
@@ -24,8 +23,7 @@ export default class Home extends React.Component {
     )
   }
   
-  renderTabs = () => {
-    const { navigation } = this.props;
+  const renderTabs = () => {
     return (
       <Block row style={styles.tabs}>
         <Button shadowless style={[styles.tab, styles.divider]} onPress={() => navigation.navigate('Pro')}>
@@ -44,20 +42,7 @@ export default class Home extends React.Component {
     )
   }
 
-  renderHeader = () => {
-    const { search, tabs } = this.props;
-    if (search || tabs) {
-      return (
-        <Block center>
-          {search ? this.renderSearch() : null}
-          {tabs ? this.renderTabs() : null}
-        </Block>
-      )
-    }
-    return null;
-  }
-
-  renderStudies = () => {
+  const renderStudies = () => {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -70,15 +55,13 @@ export default class Home extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <Block flex center style={styles.home}>
-        {this.renderSearch()}
-        {this.renderTabs()}
-        {this.renderStudies()}
-      </Block>
-    );
-  }
+  return (
+    <Block flex center style={styles.home}>
+      {renderSearch()}
+      {renderTabs()}
+      {renderStudies()}
+    </Block>
+  );
 }
 
 const styles = StyleSheet.create({
