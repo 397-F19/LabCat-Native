@@ -32,8 +32,42 @@ export default function Profile() {
       };
     }, []);
   };
-  renderData(); 
-  console.log(studies);
+  renderData();
+  const studyId = users.filter((x)=>x.uid == "001");
+
+  var currDate = new Date("11/01/2019 12:00");
+  var study = studyId[0];
+
+  var studyIds = [];
+  var pastStudiesIds = [];
+  var upcomingStudiesIds = [];
+  var upcomingStudies = [];
+  var pastStudies = [];
+  if (study != undefined) {
+    studyIds = Object.keys(study["studies"]);
+    pastStudiesIds = studyIds.filter((x)=>new Date(study["studies"][x]["start"]) < currDate);
+    upcomingStudiesIds = studyIds.filter((x)=>new Date(study["studies"][x]["start"]) >= currDate);
+    upcomingStudies = studies.filter(
+      function(x) {
+        for (var i = 0; i < upcomingStudiesIds.length; i++) {
+          if (x.sid == upcomingStudiesIds[i]) {
+            return true;
+          }
+        }
+        return false;
+      }
+    );
+    pastStudies = studies.filter(
+      function(x) {
+        for (var i = 0; i < pastStudiesIds.length; i++) {
+          if (x.sid == pastStudiesIds[i]) {
+            return true;
+          }
+        }
+        return false;
+      }
+    );
+  }
   return (
     <Block flex style={styles.profile}>
       <Block flex>
@@ -64,25 +98,20 @@ export default function Profile() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
             <Block middle>
-              <Text bold size={12} style={{marginBottom: 8}}>36</Text>
-              <Text muted size={12}>Upcoming</Text>
+              <Text bold size={12} style={{marginBottom: 8}}>{upcomingStudiesIds.length}</Text>
+              <Text muted size={12}>Upcoming Studies</Text>
             </Block>
             <Block middle>
-              <Text bold size={12} style={{marginBottom: 8}}>5</Text>
-              <Text muted size={12}>Past</Text>
-            </Block>
-            <Block middle>
-              <Text bold size={12} style={{marginBottom: 8}}>2</Text>
-              <Text muted size={12}>Messages</Text>
+              <Text bold size={12} style={{marginBottom: 8}}>{pastStudiesIds.length}</Text>
+              <Text muted size={12}>Past Studies</Text>
             </Block>
           </Block>
           <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
-            <Text size={16}>Upcoming</Text>
-            <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>
+            <Text size={16}>Your Upcoming Studies</Text>
           </Block>
           <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
             <Block col space="between" style={{ flexWrap: 'wrap' }} >
-              {studies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
+              {upcomingStudies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
             </Block>
           </Block>
         </ScrollView>
