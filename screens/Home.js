@@ -47,16 +47,16 @@ export default function Home({navigation}) {
     const [studies, setStudies] = useState([]);
 
     useEffect(() => {
-    const handleData = snap => {
-      let temp = Object.values(snap.val());
-      setStudies(temp);
-    };
-    db.ref("studies").on("value", handleData, error => alert(error));
-    return () => {
-      db.ref("studies").off("value", handleData);
-    };
+      const handleData = snap => {
+        let temp = Object.values(snap.val());
+        setStudies(temp);
+      };
+      db.ref("studies").on("value", handleData, error => alert(error));
+      return () => {
+        db.ref("studies").off("value", handleData);
+      };
 
-  }, []);
+    }, []);
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -65,9 +65,8 @@ export default function Home({navigation}) {
             {studies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
           </Block>
       </ScrollView>
-    )
+    );
   }
-
   return (
     <Block flex center style={styles.home}>
       {renderSearch()}

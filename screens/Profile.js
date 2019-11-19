@@ -1,80 +1,94 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { Icon } from '../components';
+import { Icon, Study } from '../components';
 import { Images, materialTheme } from '../constants';
 import { HeaderHeight } from "../constants/utils";
+import db from '../firebase/fb';
 
 const { width, height } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
 
-export default class Profile extends React.Component {
-  render() {
-    return (
-      <Block flex style={styles.profile}>
-        <Block flex>
-          <ImageBackground
-            source={{uri: Images.Profile}}
-            style={styles.profileContainer}
-            imageStyle={styles.profileImage}>
-            <Block flex style={styles.profileDetails}>
-              <Block style={styles.profileTexts}>
-                <Text color="white" size={28} style={{ paddingBottom: 8 }}>Jane Doe</Text>
-                <Block row space="between">
-                  <Block row>
-                    <Text color="white" size={16} muted style={styles.seller}>Student</Text>
-                  </Block>
-                  <Block>
-                    <Text color={theme.COLORS.MUTED} size={16}>
-                      <Icon name="map-marker" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
-                      {` `} Evanston, IL
-                      </Text>
-                  </Block>
+export default function Profile() {
+  const [studies, setStudies] = useState([]);
+  const [users, setUsers] = useState([]);
+  const renderData = () => {
+    useEffect(() => {
+      const handleStudies = snap => {
+        let temp = Object.values(snap.val());
+        setStudies(temp);
+      };
+      const handleUsers = snap => {
+        let temp = Object.values(snap.val());
+        setUsers(temp);
+      };
+      db.ref("studies").on("value", handleStudies, error => alert(error));
+      db.ref("users").on("value", handleUsers, error => alert(error));
+      return () => {
+        db.ref("studies").off("value", handleStudies);
+        db.ref("users").off("value", handleUsers);
+      };
+    }, []);
+  };
+  renderData(); 
+  console.log(studies);
+  return (
+    <Block flex style={styles.profile}>
+      <Block flex>
+        <ImageBackground
+          source={{uri: Images.Profile}}
+          style={styles.profileContainer}
+          imageStyle={styles.profileImage}>
+          <Block flex style={styles.profileDetails}>
+            <Block style={styles.profileTexts}>
+              <Text color="white" size={28} style={{ paddingBottom: 8 }}>Jane Doe</Text>
+              <Block row space="between">
+                <Block row>
+                  <Text color="white" size={16} muted style={styles.seller}>Student</Text>
+                </Block>
+                <Block>
+                  <Text color={theme.COLORS.MUTED} size={16}>
+                    <Icon name="map-marker" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
+                    {` `} Evanston, IL
+                    </Text>
                 </Block>
               </Block>
-              <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']} style={styles.gradient} />
             </Block>
-          </ImageBackground>
-        </Block>
-        <Block flex style={styles.options}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
-              <Block middle>
-                <Text bold size={12} style={{marginBottom: 8}}>36</Text>
-                <Text muted size={12}>Upcoming</Text>
-              </Block>
-              <Block middle>
-                <Text bold size={12} style={{marginBottom: 8}}>5</Text>
-                <Text muted size={12}>Past</Text>
-              </Block>
-              <Block middle>
-                <Text bold size={12} style={{marginBottom: 8}}>2</Text>
-                <Text muted size={12}>Messages</Text>
-              </Block>
-            </Block>
-            <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
-              <Text size={16}>Upcoming</Text>
-              <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>
-            </Block>
-            <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
-              <Block row space="between" style={{ flexWrap: 'wrap' }} >
-                {Images.Viewed.map((img, imgIndex) => (
-                  <Image
-                    source={{ uri: img }}
-                    key={`viewed-${img}`}  
-                    resizeMode="cover"
-                    style={styles.thumb}
-                  />
-                ))}
-              </Block>
-            </Block>
-          </ScrollView>
-        </Block>
+            <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']} style={styles.gradient} />
+          </Block>
+        </ImageBackground>
       </Block>
-    );
-  }
+      <Block flex style={styles.options}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
+            <Block middle>
+              <Text bold size={12} style={{marginBottom: 8}}>36</Text>
+              <Text muted size={12}>Upcoming</Text>
+            </Block>
+            <Block middle>
+              <Text bold size={12} style={{marginBottom: 8}}>5</Text>
+              <Text muted size={12}>Past</Text>
+            </Block>
+            <Block middle>
+              <Text bold size={12} style={{marginBottom: 8}}>2</Text>
+              <Text muted size={12}>Messages</Text>
+            </Block>
+          </Block>
+          <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
+            <Text size={16}>Upcoming</Text>
+            <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>
+          </Block>
+          <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
+            <Block col space="between" style={{ flexWrap: 'wrap' }} >
+              {studies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
+            </Block>
+          </Block>
+        </ScrollView>
+      </Block>
+    </Block>
+  );
 }
 
 const styles = StyleSheet.create({
