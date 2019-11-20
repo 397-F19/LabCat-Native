@@ -1,16 +1,41 @@
 import React from 'react';
 import { withNavigation } from 'react-navigation';
-import {StyleSheet, Dimensions, TouchableWithoutFeedback, ScrollView, Platform, SafeAreaView} from 'react-native';
+import {StyleSheet, Dimensions, TouchableWithoutFeedback, ScrollView, Platform, SafeAreaView, Alert} from 'react-native';
 import { Block, Text, theme, Button } from 'galio-framework';
 import Hr from "react-native-hr-component";
 import materialTheme from '../constants/Theme';
 import {HeaderHeight} from "../constants/utils";
 import COLORS from "galio-framework/src/theme/colors";
+import db from "../firebase/fb";
 
 const { width, height } = Dimensions.get('screen');
 
 const StudyPage = ({navigation}) => {
     const study = navigation.getParam('study');
+
+    const handlePress = event => {
+        var uid = "001";
+        var now = new Date();
+        let time = event.times;
+        console.log(time[0].start);
+        const newPostKey = db
+            .ref("users")
+            .child(uid)
+            .child("studies")
+            .child(event.sid);
+        Alert.alert(
+            'Avaliable Time',
+            'please select an avaliable time',
+            [...time.map(x=>({text: `${x.start} to ${x.end}`, onPress: () => {newPostKey.set(x)}})),
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+            ],
+            {cancelable: false},
+        );
+    };
     return (
         <SafeAreaView style={styles.container}>
         <ScrollView
@@ -35,7 +60,7 @@ const StudyPage = ({navigation}) => {
                 <Text p style={styles.textContent}><Text p style={styles.textKey}>Payment:</Text> {study.payment}</Text>
             </Block>
             <Block center style={styles.studyButton}>
-                <Button round size="small" >Register Study!</Button>
+                <Button round size="small" onPress={() => handlePress(study)} >Register Study!</Button>
             </Block>
         </ScrollView>
         </SafeAreaView>
