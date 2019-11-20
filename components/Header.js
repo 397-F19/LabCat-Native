@@ -15,7 +15,7 @@ const ChatButton = ({isWhite, style, navigation}) => (
       family="GalioExtra"
       size={16}
       name="chat-33"
-      color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
+      color={theme.COLORS.BLACK}
     />
     <Block middle style={styles.notify} />
   </TouchableOpacity>
@@ -86,7 +86,7 @@ class Header extends React.Component {
   render() {
     const { back, title, white, transparent, navigation } = this.props;
     const { routeName } = navigation.state;
-    const noShadow = ["Search", "Categories", "Deals", "Pro", "Profile", "StudyPage"].includes(routeName);
+    const noShadow = ["Search", "Categories", "Deals", "Pro", "Profile"].includes(routeName);
     const headerStyles = [
       !noShadow ? styles.shadow : null,
       transparent ? { backgroundColor: 'rgba(0,0,0,0)' } : null,
@@ -103,10 +103,10 @@ class Header extends React.Component {
           rightStyle={{ alignItems: 'center' }}
           leftStyle={{ flex: 0.3, paddingTop: 2  }}
           leftIconName="navicon"
-          leftIconColor={white ? theme.COLORS.WHITE : theme.COLORS.ICON}
+          leftIconColor={theme.COLORS.BLACK}
           titleStyle={[
             styles.title,
-            {color: theme.COLORS[white ? 'WHITE' : 'ICON']},
+            {color: theme.COLORS.BLACK},
           ]}
           onLeftPress={this.handleLeftPress}
         />
