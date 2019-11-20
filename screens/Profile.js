@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform, View, Button} from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform, View, TouchableOpacity} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -110,14 +110,18 @@ export default function Profile() {
       <Block flex style={styles.options}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
-            <Block middle>
-              <Text bold size={12} style={{marginBottom: 8}}>{upcomingStudiesIds.length}</Text>
-              <Button muted size={12} value={true} onPress={() => updateDisplayUpcomingStudies(true)} title="Upcoming Studies"/>
-            </Block>
-            <Block middle>
-              <Text bold size={12} style={{marginBottom: 8}}>{pastStudiesIds.length}</Text>
-              <Button muted size={12} value={false} onPress={() => updateDisplayUpcomingStudies(false)} title="Past Studies"/>
-            </Block>
+            <TouchableOpacity onPress={() => updateDisplayUpcomingStudies(true)} >
+              <Block middle>
+                <Text bold size={12} style={{marginBottom: 8}}>{upcomingStudiesIds.length}</Text>
+                <Text muted size={12}>Upcoming Studies</Text>
+              </Block>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => updateDisplayUpcomingStudies(false)}>
+              <Block middle>
+                <Text bold size={12} style={{marginBottom: 8}}>{pastStudiesIds.length}</Text>
+                <Text muted size={12}>Past Studies</Text>
+              </Block>
+            </TouchableOpacity>
           </Block>
           <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
             <Text size={16}>{listText}</Text>
