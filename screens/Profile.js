@@ -126,7 +126,7 @@ export default function Profile() {
           <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
             <Text size={16}>{listText}</Text>
           </Block>
-          <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
+          <Block style={{ paddingBottom: -HeaderHeight * 5 }}>
             <Block col space="between" style={{ flexWrap: 'wrap' }} >
               {listToDisplay.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
             </Block>
@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
   },
   profileContainer: {
     width: width,
-    height: height / 2,
+    height: height / 3,
   },
   profileDetails: {
-    paddingTop: theme.SIZES.BASE * 4,
+    paddingTop: theme.SIZES.BASE,
     justifyContent: 'flex-end',
     position: 'relative',
   },
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     padding: theme.SIZES.BASE,
     marginHorizontal: theme.SIZES.BASE,
-    marginTop: -theme.SIZES.BASE * 7,
+    marginTop: -theme.SIZES.BASE * 21,
     borderTopLeftRadius: 13,
     borderTopRightRadius: 13,
     backgroundColor: theme.COLORS.WHITE,
