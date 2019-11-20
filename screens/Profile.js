@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform } from 'react-native';
+import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform, View, Button} from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -14,6 +14,8 @@ const thumbMeasure = (width - 48 - 32) / 3;
 export default function Profile() {
   const [studies, setStudies] = useState([]);
   const [users, setUsers] = useState([]);
+  const [displayUpcomingStudies, updateDisplayUpcomingStudies] = useState(true);
+
   const renderData = () => {
     useEffect(() => {
       const handleStudies = snap => {
@@ -68,6 +70,17 @@ export default function Profile() {
       }
     );
   }
+
+  let listToDisplay;
+  let listText;
+  if (displayUpcomingStudies == true) {
+    listToDisplay = upcomingStudies;
+    listText = "Your Upcoming Studies"
+  }
+  else {
+    listToDisplay = pastStudies;
+    listText = "Your Past Studies"
+  }
   return (
     <Block flex style={styles.profile}>
       <Block flex>
@@ -99,19 +112,19 @@ export default function Profile() {
           <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
             <Block middle>
               <Text bold size={12} style={{marginBottom: 8}}>{upcomingStudiesIds.length}</Text>
-              <Text muted size={12}>Upcoming Studies</Text>
+              <Button muted size={12} value={true} onPress={() => updateDisplayUpcomingStudies(true)} title="Upcoming Studies"/>
             </Block>
             <Block middle>
               <Text bold size={12} style={{marginBottom: 8}}>{pastStudiesIds.length}</Text>
-              <Text muted size={12}>Past Studies</Text>
+              <Button muted size={12} value={false} onPress={() => updateDisplayUpcomingStudies(false)} title="Past Studies"/>
             </Block>
           </Block>
           <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
-            <Text size={16}>Your Upcoming Studies</Text>
+            <Text size={16}>{listText}</Text>
           </Block>
           <Block style={{ paddingBottom: -HeaderHeight * 2 }}>
             <Block col space="between" style={{ flexWrap: 'wrap' }} >
-              {upcomingStudies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
+              {listToDisplay.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
             </Block>
           </Block>
         </ScrollView>
