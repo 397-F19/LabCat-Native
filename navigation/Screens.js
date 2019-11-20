@@ -105,7 +105,7 @@ const HomeStack = createStackNavigator({
   StudyPage: {
     screen: StudyPage,
     navigationOptions: ({navigation}) => ({
-      header: <Header back black title="" navigation={navigation}/>,
+      header: <Header back black title="Study Page" navigation={navigation}/>,
       headerTransparent: true
     })
   }
