@@ -44,13 +44,7 @@ export default class Settings extends React.Component {
   render() {
     const recommended = [
       { title: "Use FaceID to sign in", id: "face", type: "switch" },
-      { title: "Auto-Lock security", id: "autolock", type: "switch" },
       { title: "Notifications", id: "Notifications", type: "button" },
-    ];
-
-    const payment = [
-      { title: "Manage Payment Options", id: "Payment", type: "button" },
-      { title: "Manage Gift Cards", id: "gift", type: "button" },
     ];
     
     const privacy = [
@@ -77,19 +71,6 @@ export default class Settings extends React.Component {
               </Text>
             </Block>
           }
-        />
-        <Block style={styles.title}>
-          <Text bold center size={theme.SIZES.BASE} style={{ paddingBottom: 5 }}>
-          Payment Settings
-          </Text>
-          <Text center muted size={12}>
-          These are also important settings
-          </Text>
-        </Block>
-        <FlatList
-          data={payment}
-          keyExtractor={(item, index) => item.id}
-          renderItem={this.renderItem}
         />
         <Block style={styles.title}>
           <Text bold center size={theme.SIZES.BASE} style={{ paddingBottom: 5 }}>
