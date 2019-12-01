@@ -27,16 +27,17 @@ const StudyPage = ({ navigation }) => {
     var uid = "001";
     var now = new Date();
     let time = event.times;
+    let availableTime = time.filter(x => new Date(x.start) > now);
     const newPostKey = db
       .ref("users")
       .child(uid)
       .child("studies")
       .child(event.sid);
     Alert.alert(
-      "Avaliable Time",
-      "please select an avaliable time",
+      "Available Time",
+      "please select an available time",
       [
-        ...time.map(x => ({
+        ...availableTime.map(x => ({
           text: `${x.start} to ${x.end}`,
           onPress: () => {
             let epochTimeSeconds = Math.round((new Date()).getTime() / 1000).toString();
