@@ -15,6 +15,8 @@ import materialTheme from "../constants/Theme";
 import { HeaderHeight } from "../constants/utils";
 import COLORS from "galio-framework/src/theme/colors";
 import db from "../firebase/fb";
+import ReactNativeBiometrics from "react-native-biometrics";
+
 
 const { width, height } = Dimensions.get("screen");
 
@@ -25,7 +27,6 @@ const StudyPage = ({ navigation }) => {
     var uid = "001";
     var now = new Date();
     let time = event.times;
-    console.log(time[0].start);
     const newPostKey = db
       .ref("users")
       .child(uid)
@@ -38,7 +39,21 @@ const StudyPage = ({ navigation }) => {
         ...time.map(x => ({
           text: `${x.start} to ${x.end}`,
           onPress: () => {
-            newPostKey.set(x);
+            let epochTimeSeconds = Math.round((new Date()).getTime() / 1000).toString();
+            let payload = epochTimeSeconds + 'some message';
+            console.log("inhere");
+            ReactNativeBiometrics.createSignature({
+              promptMessage: 'Sign in',
+              payload: payload
+            })
+            .then((resultObject) => {
+              const { success, signature } = resultObject;
+              if (success) {
+                console.log(signature);
+                verifySignatureWithServer(signature, payload);
+                newPostKey.set(x);
+              }
+            });
           }
         })),
         {
