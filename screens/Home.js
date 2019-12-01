@@ -62,7 +62,7 @@ export default function Home({navigation}) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.studies}>
           <Block flex col>
-            {studies.map(study => <Study key={study.title} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
+            {studies.map(study => <Study key={study.sid} study={study} style={{ marginRight: theme.SIZES.BASE }} />)}
           </Block>
       </ScrollView>
     );
