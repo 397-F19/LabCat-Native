@@ -36,8 +36,21 @@ const StudyPage = ({ navigation }) => {
   };
 
   useEffect(()=> {
-    console.log(registerStudy);
-    console.log(calendar);
+    if (registerStudy !== null && calendar !== null) {
+      calendar.map(tmp => {
+        if (tmp.title === 'Calendar'){
+          const cid = tmp.id;
+          const details = {
+          "title" : study.title,
+          "startDate" : new Date(registerStudy.start),
+          "endDate" : new Date(registerStudy.end),
+          "location" : study.location
+          };
+          const calid = Calendar.createEventAsync(cid,details);
+        }
+      })
+    }
+
   }, [{registerStudy, calendar}]);
 
   const handlePress = event => {
@@ -65,12 +78,11 @@ const StudyPage = ({ navigation }) => {
                 await authCalendar();
                 Alert.alert("Register Success");
               } else {
-                Alert.alert(error);
+                Alert.alert(results.error);
               }
             } catch (e) {
               console.log(e);
             }
-            //newPostKey.set(x);
           }
         })),
         {
