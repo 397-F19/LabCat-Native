@@ -37,14 +37,17 @@ const StudyPage = ({ navigation }) => {
 
   useEffect(()=> {
     if (registerStudy !== null && calendar !== null) {
+      const startDate = new Date(registerStudy.start);
+      const offset = [];
       calendar.map(tmp => {
         if (tmp.title === 'Calendar'){
           const cid = tmp.id;
           const details = {
           "title" : study.title,
-          "startDate" : new Date(registerStudy.start),
+          "startDate" : startDate,
           "endDate" : new Date(registerStudy.end),
-          "location" : study.location
+          "location" : study.location,
+          "alarms": [ {relativeOffset: -1440 } ]
           };
           const calid = Calendar.createEventAsync(cid,details);
         }
