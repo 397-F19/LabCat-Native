@@ -16,7 +16,6 @@ import materialTheme from "../constants/Theme";
 import { HeaderHeight } from "../constants/utils";
 import COLORS from "galio-framework/src/theme/colors";
 import db from "../firebase/fb";
-import Constants from 'expo-constants';
 import * as LocalAuthentication from 'expo-local-authentication';
 
 
@@ -45,9 +44,10 @@ const StudyPage = ({ navigation }) => {
             try {
               let results = await LocalAuthentication.authenticateAsync();
               if (results.success) {
-                  newPostKey.set(x);
+                newPostKey.set(x);
+                AlertIOS.alert("Register Success");
               } else {
-                console.log(results);
+                AlertIOS.alert(error);
               }
             } catch (e) {
               console.log(e);
