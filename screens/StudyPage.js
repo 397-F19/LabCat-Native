@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withNavigation } from "react-navigation";
 import {
   StyleSheet,
@@ -7,8 +7,7 @@ import {
   ScrollView,
   Platform,
   SafeAreaView,
-  Alert,
-  AlertIOS
+  Alert
 } from "react-native";
 import { Block, Text, theme, Button } from "galio-framework";
 import Hr from "react-native-hr-component";
@@ -17,12 +16,29 @@ import { HeaderHeight } from "../constants/utils";
 import COLORS from "galio-framework/src/theme/colors";
 import db from "../firebase/fb";
 import * as LocalAuthentication from 'expo-local-authentication';
+import * as Permissions from "expo-permissions";
+import * as Calendar from "expo-calendar";
 
 
 const { width, height } = Dimensions.get("screen");
 
 const StudyPage = ({ navigation }) => {
   const study = navigation.getParam("study");
+  const [ registerStudy, setRegisterStudy ] = useState(null);
+  const [ calendar, setCalendar ] = useState(null);
+
+  const authCalendar = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CALENDAR);
+    if (status === 'granted') {
+      const calendars = await Calendar.getCalendarsAsync();
+      setCalendar(calendars);
+    }
+  };
+
+  useEffect(()=> {
+    console.log(registerStudy);
+    console.log(calendar);
+  }, [{registerStudy, calendar}]);
 
   const handlePress = event => {
     var uid = "001";
@@ -45,9 +61,11 @@ const StudyPage = ({ navigation }) => {
               let results = await LocalAuthentication.authenticateAsync();
               if (results.success) {
                 newPostKey.set(x);
-                AlertIOS.alert("Register Success");
+                setRegisterStudy(x);
+                await authCalendar();
+                Alert.alert("Register Success");
               } else {
-                AlertIOS.alert(error);
+                Alert.alert(error);
               }
             } catch (e) {
               console.log(e);
