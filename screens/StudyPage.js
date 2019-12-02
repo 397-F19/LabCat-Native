@@ -7,7 +7,8 @@ import {
   ScrollView,
   Platform,
   SafeAreaView,
-  Alert
+  Alert,
+  AlertIOS
 } from "react-native";
 import { Block, Text, theme, Button } from "galio-framework";
 import Hr from "react-native-hr-component";
@@ -15,7 +16,8 @@ import materialTheme from "../constants/Theme";
 import { HeaderHeight } from "../constants/utils";
 import COLORS from "galio-framework/src/theme/colors";
 import db from "../firebase/fb";
-import ReactNativeBiometrics from "react-native-biometrics";
+import Constants from 'expo-constants';
+import * as LocalAuthentication from 'expo-local-authentication';
 
 
 const { width, height } = Dimensions.get("screen");
@@ -39,22 +41,18 @@ const StudyPage = ({ navigation }) => {
       [
         ...availableTime.map(x => ({
           text: `${x.start} to ${x.end}`,
-          onPress: () => {
-            let epochTimeSeconds = Math.round((new Date()).getTime() / 1000).toString();
-            let payload = epochTimeSeconds + 'some message';
-            console.log("inhere");
-            ReactNativeBiometrics.createSignature({
-              promptMessage: 'Sign in',
-              payload: payload
-            })
-            .then((resultObject) => {
-              const { success, signature } = resultObject;
-              if (success) {
-                console.log(signature);
-                verifySignatureWithServer(signature, payload);
-                newPostKey.set(x);
+          onPress: async() => {
+            try {
+              let results = await LocalAuthentication.authenticateAsync();
+              if (results.success) {
+                  newPostKey.set(x);
+              } else {
+                console.log(results);
               }
-            });
+            } catch (e) {
+              console.log(e);
+            }
+            //newPostKey.set(x);
           }
         })),
         {
